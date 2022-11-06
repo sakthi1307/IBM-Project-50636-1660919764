@@ -1,0 +1,49 @@
+.SideBar{
+    height: 100%;
+    width: 250px;
+    background-color: #f6f8ff;
+    flex: 0.2;
+}
+
+.SideBarList{
+    height: auto;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.SideBarList .Row{
+    width: 100%;
+    height: 60px;
+    list-style-type: none;
+    text-decoration: none;
+    margin: 0;
+    display: flex;
+    color: #b5b6ba;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-in;
+}
+
+.SideBarList .Row:hover{
+    cursor: pointer;
+    color: #314fd1;
+    transform: scale(1.05);
+}
+
+
+.Row #icon{
+    flex:0.3;
+    display: grid;
+    place-items: center;
+}
+
+.Row #title{
+    flex: 0.7;
+}
+
+.AppName{
+    padding: 40px 50px 20px 50px;
+    font-weight: bold;
+    font-size: 24px;
+}
