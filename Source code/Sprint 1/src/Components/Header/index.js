@@ -4,7 +4,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const Header = () => {
     return (
         <div className='NameBar'>
-            <p className='title'>Your Dashboard</p>
+            <p>Your Dashboard</p>
             <div className='User'>
                 <p>User Name</p>
                 <AccountCircleIcon />
