@@ -1,4 +1,4 @@
-import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
+import { Button, Card, CardActionArea, CardContent, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -15,7 +15,7 @@ const InfoCard = ({ title, amount, link }) => {
                 </Typography>
             </CardContent>
             <CardActionArea className='infoCard--footer' >
-                <Link to={link}>View Details</Link>
+                <Button variant="text" color='primary'><Link to={link} style={{ textDecoration: "none" }}>View Details</Link></Button>
             </CardActionArea>
         </Card>
     )

@@ -10,11 +10,11 @@ export const SideBarData = [
         icon: <DashboardIcon />,
         link: "/dashboard"
     },
-    {
-        title: "Budgets and Goals",
-        icon: <TrackChangesIcon />,
-        link: "/budgets"
-    },
+    // {
+    //     title: "Budgets and Goals",
+    //     icon: <TrackChangesIcon />,
+    //     link: "/budgets"
+    // },
     {
         title: "Records",
         icon: <FormatListBulletedIcon />,

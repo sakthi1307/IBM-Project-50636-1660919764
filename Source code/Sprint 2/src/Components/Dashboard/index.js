@@ -1,7 +1,7 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import "./Dashboard.css";
-import { Box, Card, CardActionArea, CardContent, CardHeader, CircularProgress, Typography } from '@mui/material';
+import { Box, Button, Card, CardActionArea, CardContent, CardHeader, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material';
 import Header from '../Header';
 import SideBar from '../SideBar';
 import InfoCard from '../InfoCard';
@@ -33,8 +33,47 @@ function CircularProgressWithLabel(
         </Box>
     );
 }
+function BudgetDialog(props) {
+    const { onClose, open } = props;
+
+    const handleClose = () => {
+        onClose();
+    };
+
+    return (
+        <Dialog onClose={handleClose} open={open}>
+            <DialogTitle>Add budget</DialogTitle>
+            <DialogContent>
+                <TextField
+                    margin="dense"
+                    label="Monthly Budget"
+                    onChange={(e) => props.setBudget(e.target.value)}
+                    type="number"
+                    fullWidth
+                    required
+                    variant="outlined"
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose}>Done</Button>
+            </DialogActions>
+        </Dialog>
+    );
+}
 
 function Dashboard() {
+    const [hasBudget, setHasBudget] = useState(false)
+    const [budget, setBudget] = useState(null);
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (value) => {
+        if (budget)
+            setHasBudget(true)
+        setOpen(false);
+    };
     return (
         <>
             <SideBar />
@@ -44,8 +83,26 @@ function Dashboard() {
                     <InfoCard title="Expenses" amount="300" link="records" />
                     <InfoCard title="Income" amount="300" link="budgets" />
                     <InfoCard title="Your Bills" amount="300" link="bills" />
-                    <InfoCard title="Your Goals" amount="300" link="budgets" />
+                    <Card elevation={5} sx={{ minWidth: 50, maxWidth: 200 }} className="Card">
 
+                        <CardContent>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                Budget
+                            </Typography>
+                            <Typography variant="h6" component="h6" color="primary">
+                                ${budget ? budget : 0}
+                            </Typography>
+                        </CardContent>
+                        <CardActionArea className='infoCard--footer' >
+                            <Button onClick={handleClickOpen} variant="text">Add budget</Button>
+                        </CardActionArea>
+                    </Card>
+                    <BudgetDialog
+                        open={open}
+                        onClose={handleClose}
+                        setBudget={setBudget}
+                        budget={budget}
+                    />
                 </div>
                 <div className="graphContainer">
                     <Card elevation={5} className="expenseInfo">

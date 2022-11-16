@@ -3,7 +3,7 @@
   height: 100vh;
   background-color: #fffefe;
   display: flex;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 
@@ -15,4 +15,9 @@ body {
 .dashBoardContainer {
   width: 100%;
   flex-grow: 1;
+}
+
+.datePicker {
+  width: 100%;
+  margin-top: 10px !important;
 }
