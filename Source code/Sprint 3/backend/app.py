@@ -49,7 +49,6 @@ class Info(db.Model):
     user_id = db.Column(db.String(50),db.ForeignKey('user.public_id'),nullable = False, unique=True)
     user = db.relationship('User',back_populates='info')
     monthly_limit = db.Column(db.Float)
-    weekly_limit = db.Column(db.Integer)
     phone_number = db.Column(db.Integer)
     income = db.Column(db.Float)
     currency = db.Column(db.String(10))
@@ -61,6 +60,17 @@ class Record(db.Model):
     date_created = db.Column(db.DateTime(timezone=True),default=datetime.utcnow)
     amount = db.Column(db.Float)
     gain = db.Column(db.Boolean)
+    @property
+    def serialize(self):
+       return {
+           'id'         : self.id,
+           'user':self.user,
+           'category':self.category,
+           'date_created':self.date_created,
+           'amount':self.amount,
+           'gain':self.gain
+           # This is an example how to deal with Many2Many relations
+       }
 
 class Bills(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -69,6 +79,17 @@ class Bills(db.Model):
     due_date = db.Column(db.Date)
     amount = db.Column(db.Float)
     date_created = db.Column(db.DateTime(timezone=True),default=datetime.utcnow)
+    @property
+    def serialize(self):
+       return {
+           'id'         : self.id,
+           'user':self.user,
+           'name':self.name,
+           'date_created':self.date_created,
+           'due_date':self.due_date,
+           'amount':self.amount,
+           # This is an example how to deal with Many2Many relations
+       }
 # decorator for verifying the JWT
 def token_required(f):
     @wraps(f)
@@ -140,7 +161,6 @@ def add_info(current_user):
             user_id=current_user.public_id,
             user=current_user,
             monthly_limit=form.get('monthly_limit') if form.get('monthly_limit') else default_info['monthly_limit'],
-            weekly_limit=form.get('weekly_limit') if form.get('weekly_limit') else default_info['weekly_limit'],
             phone_number=form.get('phone_number') if form.get('phone_number') else default_info['phone_number'],
             income=form.get('income') if form.get('income') else default_info['income'],
             currency=form.get('currency') if form.get('currency') else default_info['currency']
@@ -233,10 +253,10 @@ def signup():
 @app.route('/getbills', methods =['GET'])
 @token_required
 def get_bills(current_user):
-    records = Bills.query.filter_by(user=current_user.public_id).all()
-    if records is None:
-        records = {}
-    res = make_response(records,201)
+    bills = Bills.query.filter_by(user=current_user.public_id).all()
+    if bills is None:
+        bills = []
+    res = make_response(jsonify({'records':[i.serialize for i in bills]}),201)
     res.headers['Access-Control-Allow-Origin'] = '*'
     return res
 
@@ -247,7 +267,7 @@ def get_record(current_user):
     records = Record.query.filter_by(user=current_user.public_id).all()
     if records is None:
         records = {}
-    res = make_response(records,201)
+    res = make_response(jsonify({'records':[i.serialize for i in records]}),201)
     res.headers['Access-Control-Allow-Origin'] = '*'
     return res
 
