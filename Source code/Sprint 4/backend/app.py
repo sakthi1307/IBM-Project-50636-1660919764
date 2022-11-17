@@ -11,7 +11,7 @@ import jwt
 from datetime import datetime, timedelta
 from functools import wraps
 from waitress import serve
-from ibm_db_alembic.ibm_db import IbmDbImpl
+#from ibm_db_alembic.ibm_db import IbmDbImpl
 
 
 # creates Flask object
@@ -375,5 +375,5 @@ if __name__ == "__main__":
     # setting debug to True enables hot reload
     # and also provides a debugger shell
     # if you hit an error while running the server
-    # app.run(host="0.0.0.0")
-    serve(app, listen='*:5000')
+    app.run(host="0.0.0.0", debug=True)
+    #serve(app, listen='*:5000')
