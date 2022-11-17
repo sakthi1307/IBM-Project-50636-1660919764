@@ -1,0 +1,25 @@
+.record__no__body__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 100%;
+}
+
+.record__no__body__container img {
+    width: 300px;
+}
+
+.record__body__container {
+    padding: 30px;
+    height: 90vh;
+    overflow-y: scroll;
+    width: fit-content;
+    min-width: 95%;
+}
+
+.record__ChartCont {
+    height: 50%;
+    margin-bottom: 20px;
+}
