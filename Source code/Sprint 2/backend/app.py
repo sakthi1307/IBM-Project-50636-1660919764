@@ -1,6 +1,7 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response,current_app
 from flask_sqlalchemy import SQLAlchemy
 import uuid
+from sqlalchemy import extract
 
 from  werkzeug.security import generate_password_hash, check_password_hash
 # imports for PyJWT authentication
@@ -243,7 +244,7 @@ def signup():
     return res
 
 
-@app.route('/bills', methods =['GET'])
+@app.route('/getbills', methods =['GET'])
 @token_required
 def get_bills(current_user):
     bills = Bills.query.filter_by(user=current_user.public_id).all()
@@ -264,7 +265,7 @@ def get_record(current_user):
     res.headers['Access-Control-Allow-Origin'] = '*'
     return res
 
-@app.route('/records', methods =['POST'])
+@app.route('/putrecords', methods =['POST'])
 @token_required
 def put_record(current_user):
     form = request.form
@@ -292,7 +293,7 @@ def put_record(current_user):
     return res
 
 
-@app.route('/bills', methods =['POST'])
+@app.route('/putbills', methods =['POST'])
 @token_required
 def put_bills(current_user):
     form = request.form
@@ -307,7 +308,7 @@ def put_bills(current_user):
     bills = Bills(
         user=current_user.public_id,
         amount=form.get('amount'),
-        due_date=datetime.strptime(form.get('due_date'), "%d-%m-%Y").date(),
+        due_date=datetime.strptime(form.get('due_date'), "%Y-%m-%d").date(),
         name = form.get('bill_name')
         )
     
