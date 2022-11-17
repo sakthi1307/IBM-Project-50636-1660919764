@@ -248,7 +248,7 @@ def signup():
     return res
 
 
-@app.route('/getbills', methods =['GET'])
+@app.route('/bills', methods =['GET'])
 @token_required
 def get_bills(current_user):
     bills = Bills.query.filter_by(user=current_user.public_id).all()
@@ -269,7 +269,7 @@ def get_record(current_user):
     res.headers['Access-Control-Allow-Origin'] = '*'
     return res
 
-@app.route('/putrecords', methods =['POST'])
+@app.route('/records', methods =['POST'])
 @token_required
 def put_record(current_user):
     form = request.form
@@ -297,7 +297,7 @@ def put_record(current_user):
     return res
 
 
-@app.route('/putbills', methods =['POST'])
+@app.route('/bills', methods =['POST'])
 @token_required
 def put_bills(current_user):
     form = request.form
@@ -312,7 +312,7 @@ def put_bills(current_user):
     bills = Bills(
         user=current_user.public_id,
         amount=form.get('amount'),
-        due_date=datetime.strptime(form.get('due_date'), "%Y-%m-%d").date(),
+        due_date=datetime.strptime(form.get('due_date'), "%m/%d/%Y").date(),
         name = form.get('bill_name')
         )
     
