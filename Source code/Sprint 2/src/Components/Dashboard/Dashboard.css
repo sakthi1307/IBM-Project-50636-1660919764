@@ -49,8 +49,8 @@
 }
 
 .UserGraph {
-    width: 60%;
-    height: 60vh;
+    width: 56%;
+    height: 55vh;
     max-height: 60vh;
     margin-top: 10px;
     margin-left: 30px;
@@ -58,6 +58,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 .expenseInfo {
@@ -106,12 +107,14 @@
     justify-content: space-evenly;
 }
 
+/* 
 .dashgraph {
     width: 50% !important;
     height: 86% !important;
-}
+} */
 
+/* 
 .dashgraph canvas {
     width: 100% !important;
     height: 100% !important;
-}
+} */

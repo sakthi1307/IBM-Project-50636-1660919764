@@ -8,7 +8,7 @@ export const SideBarData = [
     {
         title: "Dashboard",
         icon: <DashboardIcon />,
-        link: "/dashboard"
+        link: "/"
     },
     // {
     //     title: "Budgets and Goals",
@@ -24,10 +24,5 @@ export const SideBarData = [
         title: "Bills",
         icon: <PaymentIcon />,
         link: "/bills"
-    },
-    {
-        title: "Signup",
-        icon: <PersonOutlineIcon />,
-        link: "/signup"
     }
 ]

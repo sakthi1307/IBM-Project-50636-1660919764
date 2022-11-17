@@ -44,7 +44,6 @@ function App() {
           ) : (
             <>
               <Route index element={<Dashboard />} />
-              <Route exact path="/dashboard" element={<Dashboard />} />
               <Route path="bills" element={<BillDashboard />} />
               {/* <Route path="budgets" element={<BudgetDashboard />} /> */}
               <Route path="records" element={<RecordDashboard />} />
