@@ -237,6 +237,8 @@ def signup():
         db.session.commit()
   
         res = make_response('Successfully registered.', 201)
+        res.headers['Access-Control-Allow-Origin'] = '*'
+
     else:
         # returns 202 if user already exists
         res = make_response('User already exists. Please Log in.', 202)
