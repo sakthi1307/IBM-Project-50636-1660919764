@@ -1,7 +1,7 @@
-from flask import Flask, request, jsonify, make_response,current_app
+from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 import uuid
-from sqlalchemy import extract
+from flask_cors import CORS
 
 from  werkzeug.security import generate_password_hash, check_password_hash
 # imports for PyJWT authentication
@@ -11,6 +11,7 @@ from functools import wraps
   
 # creates Flask object
 app = Flask(__name__)
+CORS(app)
 # configuration
 # NEVER HARDCODE YOUR CONFIGURATION IN YOUR CODE
 
