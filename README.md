@@ -3,7 +3,7 @@
 </p>
 <h1 align="center" style="margin-top: 0px;">Personal expense tracker application</h1>
 
-<p align="center" >Web Application for Plasma Donation</p>
+<p align="center" >Cloud-based Web Application</p>
 
 ## Problem Statement
 
