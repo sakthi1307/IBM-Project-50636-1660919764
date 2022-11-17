@@ -45,7 +45,7 @@ const Login = () => {
                         });
                     }} />
                     <Button variant="outlined" type='submit' onClick={handleSubmit}>Login</Button>
-                    <Button variant="contained" startIcon={<GoogleIcon />} >Log in with google</Button>
+                    {/* <Button variant="contained" startIcon={<GoogleIcon />} >Log in with google</Button> */}
                 </form>
                 <Divider style={{ "marginTop": "10px" }} />
                 <Typography className="footertext" variant="body2" color="text.secondary" align="center">Don't have an accout? <NavLink to="/signup">Signup</NavLink></Typography>
