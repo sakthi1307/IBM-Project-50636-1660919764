@@ -1,7 +1,9 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response,current_app
 from flask_sqlalchemy import SQLAlchemy
 import uuid
+from sqlalchemy import extract
 from flask_cors import CORS
+
 
 from  werkzeug.security import generate_password_hash, check_password_hash
 # imports for PyJWT authentication
@@ -12,6 +14,7 @@ from functools import wraps
 # creates Flask object
 app = Flask(__name__)
 CORS(app)
+
 # configuration
 # NEVER HARDCODE YOUR CONFIGURATION IN YOUR CODE
 
@@ -100,10 +103,10 @@ def token_required(f):
   
         try:
             # decoding the payload to fetch the stored details
-            print("received token : ",token)
-            print(app.config['SECRET_KEY'])
+            # print("received token : ",token)
+            # print(app.config['SECRET_KEY'])
             data = jwt.decode(token, app.config['SECRET_KEY'],algorithms=["HS256"])
-            print("data",data)
+            # print("data",data)
             current_user = User.query\
                 .filter_by(public_id = data['public_id'])\
                 .first()
@@ -191,7 +194,7 @@ def login():
         # generates the JWT Token
         token = jwt.encode({
             'public_id': user.public_id,
-            'exp' : datetime.utcnow() + timedelta(minutes = 30)
+            'exp' : datetime.utcnow() + timedelta(minutes = 24*60*10)
         }, app.config['SECRET_KEY'],algorithm="HS256")
   
         res = make_response(jsonify({'token' : token}), 201)
@@ -240,7 +243,6 @@ def signup():
   
         res = make_response('Successfully registered.', 201)
         res.headers['Access-Control-Allow-Origin'] = '*'
-
     else:
         # returns 202 if user already exists
         res = make_response('User already exists. Please Log in.', 202)
@@ -337,16 +339,29 @@ def dashboard(current_user):
         last_month_spending =  Record.query.filter_by(user=current_user.public_id).filter(db.extract('month',Record.date_created)==12,db.extract('year',Record.date_created)==dt.year-1).all()
     income = current_user.income if current_user.income is not None else 0
     balance = income - current_month_spending
-    record_this_month.join(Record.category)
-    
-    
-    response_obj = {'last_week_spending':last_week_spending}
-    return response_obj
+    by_category = record_this_month.filter_by(gain=False).with_entities(Record.category, db.func.sum(Record.amount)).group_by(Record.category).all()
+    category_list = {}
+    for x,y in by_category:
+        category_list[x] = y
+    response_obj = make_response(jsonify({'last_week_spending':last_week_spending,'expense_by_category':category_list,'income':income,'balance':balance,'monthly_limit':current_user.monthly_limit,'current_month_spending':current_month_spending}),201)
+    response_obj.headers['Access-Control-Allow-Origin'] = '*'
+    return  response_obj
 
-
+@app.route('/budget',methods=['POST'])
+@token_required
+def addbudget(current_user):
+    form = request.form
+    limit = form.get('budget')
+    current_user.monthly_limit = limit
+    db.session.add(current_user)
+    db.session.commit()
+    res = make_response("sucessfully added budget",201)
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    return res
 @app.before_first_request
 def create_tables():
     db.create_all()
+
 
 
 
