@@ -1,0 +1,120 @@
+.DashBoard {
+    flex-grow: 1;
+    /* width: 75%; */
+}
+
+.NameBar {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+}
+
+.NameBar .title {
+    margin-left: 20px;
+}
+
+.User {
+    width: 120px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.UserCards {
+    padding: 20px 30px;
+    width: 100%;
+    max-width: 83vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 10px;
+    flex-grow: 1;
+    min-width: none !important;
+    max-width: 22% !important;
+    gap: 10px;
+}
+
+.infoCard--footer {
+    padding: 0 10px !important;
+}
+
+.UserGraph {
+    width: 56%;
+    height: 55vh;
+    max-height: 60vh;
+    margin-top: 10px;
+    margin-left: 30px;
+    box-shadow: 8px 8px 8px 8px rgb(242, 242, 242);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.expenseInfo {
+    width: 33%;
+    margin-top: 10px;
+    margin-left: 30px;
+    padding: 20px 0;
+}
+
+.expenseCardContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.progressbar,
+.progressContainer {
+    width: 100px !important;
+    height: 100px !important;
+}
+
+.graphContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+}
+
+.Image {
+    height: 100%;
+    width: 100%;
+}
+
+.expenseNote,
+.expenseAmount,
+.expenseTitle {
+    margin: 12.5px 0 !important;
+}
+
+.statInfoContainer {
+    width: 100%;
+    margin: 15px 0 0 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/* 
+.dashgraph {
+    width: 50% !important;
+    height: 86% !important;
+} */
+
+/* 
+.dashgraph canvas {
+    width: 100% !important;
+    height: 100% !important;
+} */

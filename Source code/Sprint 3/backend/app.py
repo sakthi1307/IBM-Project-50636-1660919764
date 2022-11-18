@@ -1,6 +1,12 @@
 from flask import Flask, request, jsonify, make_response,current_app
 from flask_sqlalchemy import SQLAlchemy
 import uuid
+<<<<<<< HEAD
+=======
+from sqlalchemy import extract
+from flask_cors import CORS
+
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
 
 from  werkzeug.security import generate_password_hash, check_password_hash
 # imports for PyJWT authentication
@@ -10,6 +16,11 @@ from functools import wraps
   
 # creates Flask object
 app = Flask(__name__)
+<<<<<<< HEAD
+=======
+CORS(app)
+
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
 # configuration
 # NEVER HARDCODE YOUR CONFIGURATION IN YOUR CODE
 
@@ -17,6 +28,10 @@ app = Flask(__name__)
 # INSTEAD CREATE A .env FILE AND STORE IN IT
 app.config['SECRET_KEY'] = 'your secret key'
 # database name
+<<<<<<< HEAD
+=======
+app.config['CORS_HEADERS'] = 'Content-Type'
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 # creates SQLALCHEMY object
@@ -42,6 +57,7 @@ class User(db.Model):
     name = db.Column(db.String(100))
     email = db.Column(db.String(70), unique = True)
     password = db.Column(db.String(80))
+<<<<<<< HEAD
     info = db.relationship('Info', uselist=False,back_populates='user')
 
 class Info(db.Model):
@@ -52,6 +68,11 @@ class Info(db.Model):
     phone_number = db.Column(db.Integer)
     income = db.Column(db.Float)
     currency = db.Column(db.String(10))
+=======
+    monthly_limit = db.Column(db.Float)
+    phone_number = db.Column(db.Integer)
+    income = db.Column(db.Float)
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
 
 class Record(db.Model):
     id = db.Column(db.Integer,primary_key = True)
@@ -104,10 +125,17 @@ def token_required(f):
   
         try:
             # decoding the payload to fetch the stored details
+<<<<<<< HEAD
             print("received token : ",token)
             print(app.config['SECRET_KEY'])
             data = jwt.decode(token, app.config['SECRET_KEY'],algorithms=["HS256"])
             print("data",data)
+=======
+            # print("received token : ",token)
+            # print(app.config['SECRET_KEY'])
+            data = jwt.decode(token, app.config['SECRET_KEY'],algorithms=["HS256"])
+            # print("data",data)
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
             current_user = User.query\
                 .filter_by(public_id = data['public_id'])\
                 .first()
@@ -142,12 +170,17 @@ def get_all_users(current_user):
   
     res = jsonify({'users': output})
     res.headers['Access-Control-Allow-Origin'] = '*'
+<<<<<<< HEAD
     return
+=======
+    return res
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
   
 
 # def user_has_exceeded_send_email(current_user):
     
 
+<<<<<<< HEAD
 @app.route('/addinfo',methods=['POST'])
 @token_required
 def add_info(current_user):
@@ -168,6 +201,23 @@ def add_info(current_user):
     db.session.add(info)
     db.session.commit()
     return make_response('Successfully added.', 201)
+=======
+@app.route('/getinfo',methods=['GET'])
+@token_required
+def get_info(current_user):
+    output = {}
+    
+    output['public_id'] = current_user.public_id
+    output['name'] = current_user.name
+    output['email'] = current_user.email
+    output['monthly_limit'] = current_user.monthly_limit
+    output['phone_number'] = current_user.phone_number
+    output['income'] = current_user.income
+
+    res = jsonify({'users': output})
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    return res
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
 # route for logging user in
 @app.route('/login', methods =['POST'])
 def login():
@@ -200,7 +250,11 @@ def login():
         # generates the JWT Token
         token = jwt.encode({
             'public_id': user.public_id,
+<<<<<<< HEAD
             'exp' : datetime.utcnow() + timedelta(minutes = 30)
+=======
+            'exp' : datetime.utcnow() + timedelta(minutes = 24*60*10)
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
         }, app.config['SECRET_KEY'],algorithm="HS256")
   
         res = make_response(jsonify({'token' : token}), 201)
@@ -225,7 +279,13 @@ def signup():
     # gets name, email and password
     name, email = data.get('name'), data.get('email')
     password = data.get('password')
+<<<<<<< HEAD
     print("received password",password,name,email)
+=======
+    income = data.get('income')
+    monthly_limit = data.get('monthly_limit')
+    phone_number = data.get('phone_number')
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
     # checking for existing user
     user = User.query\
         .filter_by(email = email)\
@@ -236,13 +296,24 @@ def signup():
             public_id = str(uuid.uuid4()),
             name = name,
             email = email,
+<<<<<<< HEAD
             password = generate_password_hash(password)
+=======
+            password = generate_password_hash(password),
+            income = income,
+            monthly_limit = monthly_limit,
+            phone_number = phone_number
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
         )
         # insert user
         db.session.add(user)
         db.session.commit()
   
         res = make_response('Successfully registered.', 201)
+<<<<<<< HEAD
+=======
+        res.headers['Access-Control-Allow-Origin'] = '*'
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
     else:
         # returns 202 if user already exists
         res = make_response('User already exists. Please Log in.', 202)
@@ -250,7 +321,11 @@ def signup():
     return res
 
 
+<<<<<<< HEAD
 @app.route('/getbills', methods =['GET'])
+=======
+@app.route('/bills', methods =['GET'])
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
 @token_required
 def get_bills(current_user):
     bills = Bills.query.filter_by(user=current_user.public_id).all()
@@ -271,7 +346,11 @@ def get_record(current_user):
     res.headers['Access-Control-Allow-Origin'] = '*'
     return res
 
+<<<<<<< HEAD
 @app.route('/putrecords', methods =['POST'])
+=======
+@app.route('/records', methods =['POST'])
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
 @token_required
 def put_record(current_user):
     form = request.form
@@ -299,7 +378,11 @@ def put_record(current_user):
     return res
 
 
+<<<<<<< HEAD
 @app.route('/putbills', methods =['POST'])
+=======
+@app.route('/bills', methods =['POST'])
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
 @token_required
 def put_bills(current_user):
     form = request.form
@@ -314,7 +397,11 @@ def put_bills(current_user):
     bills = Bills(
         user=current_user.public_id,
         amount=form.get('amount'),
+<<<<<<< HEAD
         due_date=datetime.strptime(form.get('due_date'), "%Y-%m-%d").date(),
+=======
+        due_date=datetime.strptime(form.get('due_date'), "%m/%d/%Y").date(),
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
         name = form.get('bill_name')
         )
     
@@ -325,6 +412,7 @@ def put_bills(current_user):
     return res
 
 
+<<<<<<< HEAD
 # @app.route('/dashboard', methods =['GET'])
 # @token_required
 # def dashboard(current_user):
@@ -334,14 +422,57 @@ def put_bills(current_user):
 
 
 
+=======
+@app.route('/dashboard', methods =['GET'])
+@token_required
+def dashboard(current_user):
+    dt = datetime.utcnow()
+    record_this_month = Record.query.filter_by(user=current_user.public_id).filter(db.extract('year',Record.date_created)==dt.year,db.extract('month',Record.date_created)==dt.month)
+    record_last_seven_days = Record.query.filter_by(user=current_user.public_id).filter(Record.date_created > (dt-timedelta(days=7))).all()
+    last_week_spending = sum([-1*i.amount if i.gain else i.amount for i in record_last_seven_days])
+    current_month_spending = sum([-1*i.amount if i.gain else i.amount for i in record_this_month.all()])
+    if dt.month >1:
+       last_month_spending =  Record.query.filter_by(user=current_user.public_id).filter(db.extract('month',Record.date_created)==dt.month-1,db.extract('year',Record.date_created)==dt.year).all()
+    else:
+        last_month_spending =  Record.query.filter_by(user=current_user.public_id).filter(db.extract('month',Record.date_created)==12,db.extract('year',Record.date_created)==dt.year-1).all()
+    income = current_user.income if current_user.income is not None else 0
+    balance = income - current_month_spending
+    by_category = record_this_month.filter_by(gain=False).with_entities(Record.category, db.func.sum(Record.amount)).group_by(Record.category).all()
+    category_list = {}
+    for x,y in by_category:
+        category_list[x] = y
+    response_obj = make_response(jsonify({'last_week_spending':last_week_spending,'expense_by_category':category_list,'income':income,'balance':balance,'monthly_limit':current_user.monthly_limit,'current_month_spending':current_month_spending}),201)
+    response_obj.headers['Access-Control-Allow-Origin'] = '*'
+    return  response_obj
+
+@app.route('/budget',methods=['POST'])
+@token_required
+def addbudget(current_user):
+    form = request.form
+    limit = form.get('budget')
+    current_user.monthly_limit = limit
+    db.session.add(current_user)
+    db.session.commit()
+    res = make_response("sucessfully added budget",201)
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    return res
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
 @app.before_first_request
 def create_tables():
     db.create_all()
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
 if __name__ == "__main__":
     # setting debug to True enables hot reload
     # and also provides a debugger shell
     # if you hit an error while running the server
     app.run(debug = True,host="0.0.0.0")
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9402374c0bdaf02d6da863378d8ad51d94408eed
