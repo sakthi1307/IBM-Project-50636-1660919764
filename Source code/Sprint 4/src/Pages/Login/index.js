@@ -11,7 +11,7 @@ const Login = () => {
         e.preventDefault();
         formData.append('email', userData.email);
         formData.append('password', userData.password);
-        await fetch('http://localhost:5000/login', {
+        await fetch('http://159.122.178.155:32442/login', {
             method: 'POST',
             body: formData,
         }).then(res => res.json().then(data => {

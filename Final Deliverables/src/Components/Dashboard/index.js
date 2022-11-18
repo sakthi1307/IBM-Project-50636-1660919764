@@ -108,7 +108,7 @@ function Dashboard() {
 
     const getDashboardDetails = async () => {
         let token = localStorage.getItem('token');
-        await fetch('http://localhost:5000/dashboard', {
+        await fetch('http://159.122.178.155:32442/dashboard', {
             method: 'GET',
             headers: new Headers({
                 "x-access-token": token
@@ -128,7 +128,7 @@ function Dashboard() {
             setHasBudget(true)
             formData.append('budget', budget);
             let token = localStorage.getItem('token')
-            fetch('http://localhost:5000/budget', {
+            fetch('http://159.122.178.155:32442/budget', {
                 method: 'POST',
                 body: formData,
                 headers: new Headers({

@@ -59,7 +59,7 @@ const RecordDashboard = () => {
     };
     const getRecords = async () => {
         let token = localStorage.getItem('token');
-        await fetch('http://localhost:5000/records', {
+        await fetch('http://159.122.178.155:32442/records', {
             method: 'GET',
             headers: new Headers({
                 "x-access-token": token
@@ -82,7 +82,7 @@ const RecordDashboard = () => {
             formData.append("category", expense.category)
             formData.append("gain", expense.gain)
             let token = localStorage.getItem('token')
-            fetch('http://localhost:5000/records', {
+            fetch('http://159.122.178.155:32442/records', {
                 method: 'POST',
                 body: formData,
                 headers: new Headers({

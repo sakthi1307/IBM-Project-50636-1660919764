@@ -19,7 +19,7 @@ function App() {
         s.isLoggedIn = true
         s.token = token
       })
-      fetch('http://localhost:5000/getinfo', {
+      fetch('http://159.122.178.155:32442/getinfo', {
         method: 'GET',
         headers: new Headers({
           "x-access-token": token

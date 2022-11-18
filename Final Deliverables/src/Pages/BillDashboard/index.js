@@ -71,7 +71,7 @@ const BillDashboard = () => {
     };
     const getBills = async () => {
         let token = localStorage.getItem('token');
-        await fetch('http://localhost:5000/bills', {
+        await fetch('http://159.122.178.155:32442/bills', {
             method: 'GET',
             headers: new Headers({
                 "x-access-token": token
@@ -79,7 +79,7 @@ const BillDashboard = () => {
         }).then(res => res.json().then(data => {
             console.log(data)
             billsStore.update(s => {
-                s.bills = data.records
+                s.bills = data.bills
             })
         }))
     }
@@ -96,7 +96,7 @@ const BillDashboard = () => {
             formData.append('amount', bill.amount);
             formData.append('due_date', bill.duedate ? new Date(bill.duedate).toLocaleDateString() : new Date().toLocaleDateString());
             let token = localStorage.getItem('token')
-            fetch('http://localhost:5000/bills', {
+            fetch('http://159.122.178.155:32442/bills', {
                 method: 'POST',
                 body: formData,
                 headers: new Headers({
@@ -115,7 +115,7 @@ const BillDashboard = () => {
             <div className='dashBoardContainer'>
                 <Header />
                 <div className="record__body">
-                    {bills.length > 0 ? (
+                    {bills?.length>0 ? (
                         <div className="record__body__container">
                             <Paper elevation={5} style={{ padding: "20px" }} className="record__TableCont">
                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }} >

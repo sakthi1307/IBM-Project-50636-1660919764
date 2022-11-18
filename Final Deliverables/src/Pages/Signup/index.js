@@ -14,10 +14,10 @@ const Signup = () => {
         formData.append('income', userData.income);
         formData.append('phone_number', userData.phone_number);
         e.preventDefault();
-        fetch('http://localhost:5000/signup', {
+        fetch('http://159.122.178.155:32442/signup', {
             method: 'POST',
             body: formData,
-        }).then(res => console.log(res))
+        }).then(res => {window.location.href='/'})
     }
     return (
         <Container maxWidth="xl" className='signup'>
@@ -77,7 +77,7 @@ const Signup = () => {
                     {/* <Button variant="contained" startIcon={<GoogleIcon />} >Sign up with google</Button> */}
                 </form>
                 <Divider style={{ "marginTop": "10px" }} />
-                <Typography className="footertext" variant="body2" color="text.secondary" align="center">Already have an accout? <NavLink to="/login">login</NavLink></Typography>
+                <Typography className="footertext" variant="body2" color="text.secondary" align="center">Already have an accout? <NavLink to="/">login</NavLink></Typography>
             </Paper>
         </Container>
     )
