@@ -8,9 +8,9 @@
 
 ``` .\venv\Scripts\activate ```
 ### api keys
-  add`your db endpoint
-  set secret 
-  set sendgrid api key 
+  1. Add your db endpoint
+  2. Set secret 
+  3. Set sendgrid api key 
 ### install requirements
 
 ``` pip install -r requirements.txt ```
