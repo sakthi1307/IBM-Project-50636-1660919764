@@ -24,10 +24,15 @@ app.config['SECRET_KEY'] = 'your secret key'
 # database name
 app.config['CORS_HEADERS'] = 'Content-Type'
 <<<<<<< HEAD
+<<<<<<< HEAD
 # db = SQLAlchemy.create_engine("db2+ibm_db://ctc88742:2gR5h8SYMcQEcj72@19af6446-6171-4641-8aba-9dcff8e1b6ff.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud[:30699]/bludb")
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Database.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'ibm_db_sa://ctc88742:2gR5h8SYMcQEcj72@19af6446-6171-4641-8aba-9dcff8e1b6ff.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud:30699/bludb;SECURITY=SSL;sslCertLocation=DigiCertGlobalRootCA.crt;sslConnection=true;'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+=======
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+>>>>>>> parent of 34b37f8 (all featutes working)
 =======
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
