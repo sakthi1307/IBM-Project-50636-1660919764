@@ -7,8 +7,6 @@
 
 ## Problem Statement
 
-## * [Website Link] (http://159.122.178.155:30634/)
-
 ## * [Demo Link] (https://drive.google.com/file/d/1Sxr0wnTqdyXhla57Dv6Mtq7UWxZfht28/view?usp=sharing)
 
 In simple words, personal finance entails all the financial decisions and activities that a Finance app makes your life easier by helping you to manage your finances efficiently. A personal finance app will not only help you with budgeting and accounting but also give you helpful insights about money management.
